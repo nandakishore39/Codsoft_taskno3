@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            background-color: rgb(34, 34, 34);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        table {
+            border-collapse: collapse;
+            background-color: gray;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        td {
+            padding: 5px;
+            text-align: center;
+        }
+        input[type="button"] {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 50%;
+            color: white;
+            background-color: transparent;
+        }
+        input[type="button"]:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .operator {
+            color: palegreen;
+        }
+        .operator:hover {
+            background-color: black;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background-color: transparent;
+            color: white;
+            text-align: right;
+        }
+    </style>
+</head>
+<script>
+    function adddisplay(value){
+        document.getElementById("display").value+=value;
+    }
+    function cleardisplay(){
+        document.getElementById("display").value="";
+    }
+    function calculateres(){
+        var expr=document.getElementById("display").value;
+        var result=eval(expr);
+        document.getElementById("display").value = result;
+    }
+    function deletenum(){
+        var res=document.getElementById("display").value;
+        document.getElementById("display").value=res.slice(0, -1);
+    }
+    function handleKeyPress(event){
+        event.preventDefault();
+        var key = event.key;
+        if (key >= "0" && key <= "9"){
+            adddisplay(key);
+        }else if(key==="."){
+            adddisplay(".");
+        }else if(key==="+" || key==="-" || key==="*" || key==="/" || key==="%"){
+            adddisplay(key);
+        }else if(key==="Backspace"){
+            deletenum();
+        }else if(key==="Enter"){
+            calculateres();
+        }else if(key==="Escape"){
+            cleardisplay();
+        }
+    }
+    document.addEventListener('keydown', handleKeyPress);
+</script>
+<body>
+    <table >
+        <tr>
+            <td colspan="4">
+                <input type="text" id="display" readonly></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="c" onclick="cleardisplay()"></td>
+            <td><input type="button" value="%" onclick="adddisplay('%')"></td>
+            <td><input type="button" value="⌫" onclick="deletenum()"></td>
+            <td><input type="button" value="/" onclick="adddisplay('/')" class="operator"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="7" onclick="adddisplay('7')"></td>
+            <td><input type="button" value="8" onclick="adddisplay('8')"></td>
+            <td><input type="button" value="9" onclick="adddisplay('9')"></td>
+            <td><input type="button" value="" onclick="adddisplay('')" class="operator"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="4" onclick="adddisplay('4')"></td>
+            <td><input type="button" value="5" onclick="adddisplay('5')"></td>
+            <td><input type="button" value="6" onclick="adddisplay('6')"></td>
+            <td><input type="button" value="-" onclick="adddisplay('-')" class="operator"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="1" onclick="adddisplay('1')"></td>
+            <td><input type="button" value="2" onclick="adddisplay('2')"></td>
+            <td><input type="button" value="3" onclick="adddisplay('3')"></td>
+            <td><input type="button" value="+" onclick="adddisplay('+')" class="operator"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="00" onclick="adddisplay('00')"></td>
+            <td><input type="button" value="." onclick="adddisplay('.')"></td>
+            <td><input type="button" value="0" onclick="adddisplay('0')"></td>
+            <td><input type="button" value="=" onclick="calculateres()" class="operator"></td>
+        </tr>
+    </table>
+</body>
+</html>
